@@ -21,3 +21,23 @@ window.addEventListener('scroll', function() {
         aboutSection.style.setProperty('--parallax-offset', `${parallaxOffset}px`);
     }
 });
+
+// Função para alternar a classe flipped no card ao clicar
+function toggleFlip(card) {
+    const cardInner = card.querySelector('.card-inner');
+    // Alterna a classe 'flipped' para mostrar o card-back
+    cardInner.classList.toggle('flipped');
+}
+
+// Reseta o flip ao sair do card
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseleave', () => {
+        const cardInner = card.querySelector('.card-inner');
+        cardInner.classList.remove('flipped');
+    });
+});
+
+function autoResize(textarea) {
+    textarea.style.height = "auto"; // Redefine a altura para que possa crescer
+    textarea.style.height = Math.min(textarea.scrollHeight, 200) + "px"; // Ajusta a altura até o limite
+}

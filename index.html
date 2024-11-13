@@ -49,9 +49,9 @@
         <div class="card-container">
             
             <!-- Card para Corte de Cabelo -->
-            <div class="card">
+            <div class="card" onclick="toggleFlip(this)">
                 <div class="card-inner">
-                    <div class="card-front">
+                    <div class="card-front corte-cabelo">
                         <h3>Corte de Cabelo</h3>
                         <p class="price">R$50,00</p>
                     </div>
@@ -62,9 +62,9 @@
             </div>
             
             <!-- Card para Barba Completa -->
-            <div class="card">
+            <div class="card" onclick="toggleFlip(this)">
                 <div class="card-inner">
-                    <div class="card-front">
+                    <div class="card-front barba-completa">
                         <h3>Barba Completa</h3>
                         <p class="price">R$40,00</p>
                     </div>
@@ -75,9 +75,9 @@
             </div>
             
             <!-- Card para Tratamento Capilar -->
-            <div class="card">
+            <div class="card" onclick="toggleFlip(this)">
                 <div class="card-inner">
-                    <div class="card-front">
+                    <div class="card-front tratamento-capilar">
                         <h3>Tratamento Capilar</h3>
                         <p class="price">R$70,00</p>
                     </div>
@@ -86,17 +86,78 @@
                     </div>
                 </div>
             </div>
-            
+            <!-- Card para Design de Sobrancelha -->
+            <div class="card" onclick="toggleFlip(this)">
+                <div class="card-inner">
+                    <div class="card-front design-sobrancelha">
+                        <h3>Design de Sobrancelha</h3>
+                        <p class="price">R$30,00</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Modelagem precisa para sobrancelhas alinhadas, mantendo um aspecto natural e limpo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card para Limpeza de Pele -->
+            <div class="card" onclick="toggleFlip(this)">
+                <div class="card-inner">
+                    <div class="card-front limpeza-pele">
+                        <h3>Limpeza de Pele</h3>
+                        <p class="price">R$90,00</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Tratamento para remover impurezas, controlar a oleosidade e revitalizar a pele.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card para Massagem Relaxante -->
+            <div class="card" onclick="toggleFlip(this)">
+                <div class="card-inner">
+                    <div class="card-front massagem-relaxante">
+                        <h3>Massagem Relaxante</h3>
+                        <p class="price">R$50,00</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Massagem rápida para aliviar a tensão e proporcionar um momento de relaxamento.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>       
+    </section>           
     
-    <!-- Seção de contato -->
     <section id="contact">
         <h2>Entre em Contato</h2>
-        <p>Endereço: Rua dos Cortes, 123 - Centro</p>
-        <p>Telefone: (11) 98765-4321</p>
-    </section>    
+        <div class="contact-container">
+            <!-- Formulário de Contato -->
+            <form class="contact-form">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" placeholder="Seu nome" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Seu email" required>
+                
+                <label for="phone">Telefone</label>
+                <input type="tel" id="phone" name="phone" placeholder="Seu telefone">
+                
+                <label for="message">Mensagem</label>
+                <textarea id="message" name="message" placeholder="Escreva sua mensagem" rows="4" required oninput="autoResize(this)"></textarea>
+                
+                <button type="submit" class="submit-button">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>       
 
+    <footer id="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Barbearia Jamal. Todos os direitos reservados.</p>
+            <p>📍 Endereço: Rua dos Cortes, 123 - Centro</p>
+            <p>📞 Telefone: (11) 98765-4321</p>
+        </div>
+    </footer>
+    
     <script src="js/script.js"></script> <!-- Script para funcionalidades adicionais -->
 </body>
 </html>

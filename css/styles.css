@@ -51,6 +51,14 @@ body {
     --link-color: #023299;
     --link-color-rgb: 2, 50, 153;
     --light-bg-color: #024873;
+
+    /* Cores para os cards */
+    --card-front-bg: #ffffff;
+    --card-front-gradient: #f0f4f8;
+    --card-back-bg: #023299;
+    --card-back-gradient: #0056cc;
+    --card-text-color: #333;
+    --card-back-text-color: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -63,6 +71,14 @@ body {
     --link-color: #fd5d00;
     --link-color-rgb: 76, 80, 89;
     --light-bg-color: #3a3f4b;
+
+    /* Cores para os cards no tema escuro */
+    --card-front-bg: #5a5e67;
+    --card-front-gradient: #6e747d;
+    --card-back-bg: #FF8C42;
+    --card-back-gradient: #FF5733;
+    --card-text-color: #ffffff;
+    --card-back-text-color: #f0f0f0;
 }
 
 .navbar {
@@ -156,7 +172,6 @@ input:checked + .slider:before {
 
 section {
     height: 100vh;
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -252,7 +267,6 @@ section ul li:hover {
     border-radius: 10px;
 }
 
-/* Estilo do botão de ação */
 .cta-button {
     display: inline-block;
     margin-top: 1.5rem;
@@ -268,9 +282,9 @@ section ul li:hover {
 }
 
 .cta-button:hover {
-    background-color: var(--link-color); /* Muda a cor ao passar o mouse */
-    transform: translateY(-3px); /* Efeito de elevação */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Aumenta a sombra */
+    background-color: var(--link-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
 }
 
 #about {
@@ -326,7 +340,6 @@ section ul li:hover {
     }
 }
 
-/* Seção e contêiner dos cards */
 #services {
     padding: 4rem 2rem;
     text-align: center;
@@ -336,22 +349,32 @@ section ul li:hover {
 
 #services h2 {
     font-size: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.8rem;
+    margin: 0 auto;
+    max-width: 40%;
     justify-content: center;
-    gap: 2rem;
 }
 
-/* Card principal com perspectiva 3D */
 .card {
-    width: 220px;
-    height: 280px;
+    width: 280px;
+    height: 300px;
     perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card-inner {
@@ -359,77 +382,205 @@ section ul li:hover {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.6s ease;
     border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card:hover .card-inner {
-    transform: translateY(-10px) rotateX(5deg) rotateY(-5deg); /* Elevação e leve rotação */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Sombra mais profunda no hover */
+.card-inner.flipped {
+    transform: rotateY(180deg);
 }
 
-/* Estilos do card frontal */
 .card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
     padding: 1.5rem;
-    transition: transform 0.6s ease; /* Transição para o flip */
+    border-radius: 12px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
 }
 
-/* Card frontal com gradiente e sombra suave */
 .card-front {
-    background: linear-gradient(135deg, #ffffff, #f0f4f8);
-    color: #333;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    color: var(--card-text-color);
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(0deg);
+    z-index: 2;
 }
 
-/* Card traseiro */
-.card-back {
-    background: linear-gradient(135deg, #023299, #0056cc);
+.card-front::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.card-front::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    z-index: 2;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.card-front h3, .card-front .price {
+    position: relative;
+    z-index: 3;
     color: #ffffff;
+}
+
+.card-back {
+    background: linear-gradient(135deg, var(--card-back-bg), var(--card-back-gradient));
+    color: var(--card-back-text-color);
     transform: rotateY(180deg);
+    z-index: 1;
 }
 
-/* Estilos de título e preço no card frontal */
-.card-front h3 {
-    font-size: 1.6rem;
-    color: #333;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+/* Específicas imagens de fundo para cada serviço */
+.corte-cabelo {
+    background-image: url('../images/corte-cabelo.jpg');
 }
 
-.card-front .price {
-    font-size: 1.2rem;
-    color: #444;
-    font-weight: 600;
-    background-color: rgba(0, 50, 130, 0.1);
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
+.barba-completa {
+    background-image: url('../images/barba-completa.jpg');
 }
 
-/* Texto no card traseiro */
-.card-back p {
-    font-size: 1rem;
-    padding: 0.5rem;
+.tratamento-capilar {
+    background-image: url('../images/tratamento-capilar.jpg');
+}
+
+.design-sobrancelha {
+    background-image: url('../images/design-sobrancelha.jpg');
+}
+
+.limpeza-pele {
+    background-image: url('../images/limpeza-pele.jpg');
+}
+
+.massagem-relaxante {
+    background-image: url('../images/massagem-relaxante.jpg');
+}
+
+#contact {
+    color: var(--text-color);
     text-align: center;
+    padding-top: 5rem;
 }
 
-/* Animação de flip */
-.card:hover .card-front {
-    transform: rotateY(180deg);
+#contact h2 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2rem; /* Adiciona espaço abaixo do título */
 }
 
-.card:hover .card-back {
-    transform: rotateY(360deg);
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; 
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
 }
+
+/* Formulário de Contato */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    gap: 1rem;
+}
+
+.contact-form textarea {
+    resize: none; /* Impede o redimensionamento manual */
+    overflow-y: auto; /* Exibe a barra de rolagem apenas quando necessário */
+    max-height: 200px; /* Define a altura máxima do campo */
+}
+
+.contact-form label {
+    font-size: 0.9rem;
+    color: #ddd;
+    text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+.submit-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--nav-bg-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#footer {
+    background-color: var(--background);
+    color: var(--text-color);
+    padding: 1rem 0; /* Reduz o espaço vertical */
+    text-align: center;
+    font-size: 0.8rem; /* Tamanho de fonte menor para o rodapé */
+}
+
+.footer-content p {
+    margin: 0.3rem 0; /* Espaço reduzido entre as linhas de texto */
+    line-height: 1.4; /* Ajuste de altura de linha para compactação */
+    color: rgba(255, 255, 255, 0.8); /* Cor sutilmente mais suave */
+}
+
 
 /* Media Query para dispositivos menores (como tablets e celulares) */
 @media (max-width: 768px) {
@@ -441,10 +592,25 @@ section ul li:hover {
 
     #home .text-content {
         max-width: 100%;
-        margin-bottom: 2rem; /* Espaço entre texto e imagem */
+        margin-bottom: 2rem;
     }
 
     #home img {
-        max-width: 100%; /* Imagem ocupa 100% da largura disponível */
+        max-width: 100%;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .contact-info,
+    .contact-form {
+        max-width: 45%;
     }
 }
