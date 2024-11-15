@@ -366,8 +366,8 @@ section ul li:hover {
 }
 
 .card {
-    width: 280px;
-    height: 300px;
+    width: 220px;
+    height: 240px;
     perspective: 1000px;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -479,7 +479,8 @@ section ul li:hover {
 #contact {
     color: var(--text-color);
     text-align: center;
-    padding-top: 5rem;
+    padding-top: 2em;
+    height: 800px;
 }
 
 #contact h2 {
